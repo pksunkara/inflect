@@ -1,0 +1,27 @@
+{
+  "name": "bullet-support",
+  "description": "support for MVC framework with bullet speed",
+  "version": "1.0.0-rc1",
+  "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com>",
+  "contributors": [
+    { "name": "Pavan Kumar Sunkara", "email": "pavan.sss1991@gmail.com" }
+  ],
+  "dependencies": {
+    "docco": "*",
+    "coffee-script": "*"
+  },
+  "devDependencies": {
+    "vows": "*"
+  },
+  "keywords": ["support", "framework", "rails", "web", "rest", "restful"],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bulletjs/support.git"
+  },
+  "main": "./lib/index",
+  "scripts": {
+    "test": "vows --spec",
+    "preinstall": "docco src/*.coffee && coffee -o lib -c src/*.coffee"
+  },
+  "engines": { "node": ">= 0.4.1 < 0.5.0" }
+}
