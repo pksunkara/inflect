@@ -1,18 +1,18 @@
-vows = require('vows')
-assert = require('assert')
+vows = require 'vows'
+assert = require 'assert'
 
-base64 = require('../src/base64')
+base64 = require '../src/base64'
 
 vows
   .describe('Module Base64')
   .addBatch
-    'encoding':
+    'Encoding':
       topic: base64
 
       'correctly': (topic) ->
         assert.equal topic.encode64('Original unencoded string'), 'T3JpZ2luYWwgdW5lbmNvZGVkIHN0cmluZw=='
 
-    'decoding':
+    'Decoding':
       topic: base64
 
       'correctly': (topic) ->

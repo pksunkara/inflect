@@ -4,7 +4,7 @@ assert = require 'assert'
 vows
   .describe('Test version of the module')
   .addBatch
-    'when we check the versions':
+    'When we check the versions':
       topic: require '../src/version'
 
       'we get':
