@@ -39,3 +39,25 @@ module.exports = (klass) ->
         self = ''
 
     result
+
+  # The first letter will be made upper case
+  #
+  #     "hello".upcase #=> "Hello"
+  klass::upcase = ->
+    result = ''
+    self = this
+
+    for key in self
+        result += key
+    result[0].toUpperCase() + result.substr(1)
+
+  # The first letter will be made lower case
+  #
+  #     "HELLO".downcase #=> "hELLO"
+  klass::downcase = ->
+    result = ''
+    self = this
+
+    for key in self
+      result += key
+    result[0].toLowerCase() + result.substr(1)

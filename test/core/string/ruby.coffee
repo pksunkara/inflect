@@ -29,4 +29,16 @@ vows
             "<#{$[1]}>"
           assert.equal str, 'b<u>ll<e>t'
 
+    'Testing upcase':
+      topic: 'bullet'
+
+      'only first letter should be upcase': (topic) ->
+        assert.equal topic.upcase(), 'Bullet'
+
+    'Testing downcase':
+      topic: 'BULLET'
+
+      'only first letter should be downcase': (topic) ->
+        assert.equal topic.downcase(), 'bULLET'
+
   .export(module)
