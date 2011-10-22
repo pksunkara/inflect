@@ -27,7 +27,7 @@ module.exports =
   camelize: (lower_case_and_underscored_word, first_letter_in_uppercase = true) ->
     result = lower_case_and_underscored_word.gsub /\/(.?)/, ($) ->
       "::#{$[1].upcase()}"
-    result = result.gsub /(?:_)(.)/, ($) ->
+    .gsub /(?:_)(.)/, ($) ->
       $[1].upcase()
     if first_letter_in_uppercase
       result.upcase()
