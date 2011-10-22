@@ -6,6 +6,12 @@ require('../../../src/core/string/ruby')
 vows
   .describe('Module core extension Ruby')
   .addBatch
+    'Testing value':
+      topic: 'bullet'
+
+      'join the keys': (topic) ->
+        assert.equal topic.value(), 'bullet'
+
     'Testing gsub':
       topic: 'bullet'
 

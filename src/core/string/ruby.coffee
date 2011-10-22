@@ -17,14 +17,11 @@ module.exports = (klass) ->
   #       "<#{$[1]}>"                    #=> "h<e>ll<o>"
   #
   klass::gsub = (pattern, replacement) ->
+    unless pattern? and replacement?
+      return @value()
+
     result = ''
     self = this
-
-    unless pattern? and replacement?
-      for key in self
-        result += key
-      return result
-
     while self.length > 0
       if (match = self.match(pattern))
         result += self.slice(0, match.index)
@@ -37,30 +34,25 @@ module.exports = (klass) ->
       else
         result += self
         self = ''
-
     result
 
   # Returns a copy of the String with the first letter being upper case
   #
   #     "hello".upcase #=> "Hello"
   klass::upcase = ->
-    result = ''
-    self = this
-
-    for key in self
-        result += key
-    result[0].toUpperCase() + result.substr(1)
+    @[0].toUpperCase() + @substr(1)
 
   # Returns a copy of the String with the first letter being lower case
   #
   #     "HELLO".downcase #=> "hELLO"
   klass::downcase = ->
-    result = ''
-    self = this
+    @[0].toLowerCase() + @substr(1)
 
-    for key in self
-      result += key
-    result[0].toLowerCase() + result.substr(1)
+  # Returns a string value for the String object
+  #
+  #     "hello"._value() #=> "hello"
+  klass::value = ->
+    @substr(0)
 
 # Extend String prototype
 module.exports String
