@@ -5,8 +5,6 @@
 # If you discover an incorrect inflection and require it for your application, you'll need
 # to correct it yourself (explained below).
 
-# require('../core/string/ruby') String
-
 module.exports =
 
   # By default, _camelize_ converts strings to UpperCamelCase. If the argument to _camelize_

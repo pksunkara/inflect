@@ -1,7 +1,7 @@
 vows = require 'vows'
 assert = require 'assert'
 
-require('../../../src/core/string/ruby') String
+require('../../../src/core/string/ruby')
 
 vows
   .describe('Module core extension Ruby')

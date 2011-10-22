@@ -40,7 +40,7 @@ module.exports = (klass) ->
 
     result
 
-  # The first letter will be made upper case
+  # Returns a copy of the String with the first letter being upper case
   #
   #     "hello".upcase #=> "Hello"
   klass::upcase = ->
@@ -51,7 +51,7 @@ module.exports = (klass) ->
         result += key
     result[0].toUpperCase() + result.substr(1)
 
-  # The first letter will be made lower case
+  # Returns a copy of the String with the first letter being lower case
   #
   #     "HELLO".downcase #=> "hELLO"
   klass::downcase = ->
@@ -61,3 +61,6 @@ module.exports = (klass) ->
     for key in self
       result += key
     result[0].toLowerCase() + result.substr(1)
+
+# Extend String prototype
+module.exports String
