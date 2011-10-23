@@ -41,10 +41,8 @@ module.exports =
   #     "SSLError".underscore.camelize # => "SslError"
   underscore: (camel_cased_word) ->
     self = camel_cased_word.gsub /::/, '/'
-    .gsub /([A-Z]+)([A-Z][a-z])/, ($) ->
-      "#{$[1]}_#{$[2]}"
-    .gsub /([a-z\d])([A-Z])/, ($) ->
-      "#{$[1]}_#{$[2]}"
+    .gsub /([A-Z]+)([A-Z][a-z])/, "$1_$2"
+    self = self.gsub /([a-z\d])([A-Z])/, "$1_$2"
     .gsub /-/, '_'
     self.downcase()
 

@@ -35,6 +35,13 @@ vows
             "<#{$[1]}>"
           assert.equal str, 'b<u>ll<e>t'
 
+      'when replacement is special':
+        'with many groups': (topic) ->
+          assert.equal topic.gsub(/([aeiou])(.)/, '<$1>$2'), 'b<u>ll<e>t'
+
+        'with no groups': (topic) ->
+          assert.equal topic.gsub(/[aeiou]/, '<$1>'), 'b<u>ll<e>t'
+
     'Testing upcase':
       topic: 'bullet'
 

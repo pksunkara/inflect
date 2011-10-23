@@ -13,6 +13,7 @@ module.exports = (klass) ->
   # The result inherits any tainting in the original string or any supplied replacement string.
   #
   #     "hello".gsub /[aeiou]/, '*'      #=> "h*ll*"
+  #     "hello".gsub /[aeiou]/, '<$1>'   #=> "h<e>ll<o>"
   #     "hello".gsub /[aeiou]/, ($) ->
   #       "<#{$[1]}>"                    #=> "h<e>ll<o>"
   #
@@ -28,6 +29,13 @@ module.exports = (klass) ->
         if typeof replacement is 'function'
           match[1] = match[1] or match[0]
           result += replacement(match)
+        else if replacement.match /\$[1-9]/
+          match[1] = match[1] or match[0]
+          replacementStr = replacement
+          for i in [1..9]
+            if match[i]
+              replacementStr = eval "replacementStr.gsub(/\\\$#{i}/, '#{match[i]}')"
+          result += replacementStr
         else
           result += replacement
         self = self.slice(match.index + match[0].length)
