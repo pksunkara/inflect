@@ -21,7 +21,7 @@
   "main": "./lib/index",
   "scripts": {
     "test": "vows --spec $(find test -name '*.coffee')",
-    "preinstall": "docco $(find src -name '*.coffee') && coffee -o lib -c src"
+    "preinstall": "cake docs && cake lib"
   },
   "engines": { "node": ">= 0.4.1 < 0.5.0" }
 }
