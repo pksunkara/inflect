@@ -40,13 +40,23 @@ module.exports = (klass) ->
   #
   #     "hello".upcase #=> "Hello"
   klass::upcase = ->
-    @[0].toUpperCase() + @substr(1)
+    self = this
+    .gsub /_([a-z])/, ($) ->
+      "_#{$[1].toUpperCase()}"
+    .gsub /\/([a-z])/, ($) ->
+      "/#{$[1].toUpperCase()}"
+    self[0].toUpperCase() + self.substr(1)
 
   # Returns a copy of the String with the first letter being lower case
   #
   #     "HELLO".downcase #=> "hELLO"
   klass::downcase = ->
-    @[0].toLowerCase() + @substr(1)
+    self = this
+    .gsub /_([A-Z])/, ($) ->
+      "_#{$[1].toLowerCase()}"
+    .gsub /\/([A-Z])/, ($) ->
+      "/#{$[1].toLowerCase()}"
+    self[0].toLowerCase() + self.substr(1)
 
   # Returns a string value for the String object
   #

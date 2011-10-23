@@ -41,10 +41,22 @@ vows
       'only first letter should be upcase': (topic) ->
         assert.equal topic.upcase(), 'Bullet'
 
+      'letter after underscore': (topic) ->
+        assert.equal 'bullet_record'.upcase(), 'Bullet_Record'
+
+      'letter after slash': (topic) ->
+        assert.equal 'bullet_record/errors'.upcase(), 'Bullet_Record/Errors'
+
     'Testing downcase':
       topic: 'BULLET'
 
       'only first letter should be downcase': (topic) ->
         assert.equal topic.downcase(), 'bULLET'
+
+      'letter after underscore': (topic) ->
+        assert.equal 'BULLET_RECORD'.downcase(), 'bULLET_rECORD'
+
+      'letter after slash': (topic) ->
+        assert.equal 'BULLET_RECORD/ERRORS'.downcase(), 'bULLET_rECORD/eRRORS'
 
   .export(module)

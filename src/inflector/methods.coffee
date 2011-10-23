@@ -12,7 +12,6 @@ module.exports =
   #
   # _camelize_ will also convert '/' to '::' which is useful for converting paths to namespaces.
   #
-  # Examples:
   #     "bullet_record".camelize               # => "BulletRecord"
   #     "bullet_record".camelize(false)        # => "bulletRecord"
   #     "bullet_record/errors".camelize        # => "BulletRecord::Errors"
@@ -27,7 +26,57 @@ module.exports =
       "::#{$[1].upcase()}"
     .gsub /(?:_)(.)/, ($) ->
       $[1].upcase()
-    if first_letter_in_uppercase
-      result.upcase()
+    if first_letter_in_uppercase then result.upcase() else result
+
+  # Makes an underscored, lowercase form from the expression in the string.
+  #
+  # Changes '::' to '/' to convert namespaces to paths.
+  #
+  #     "BulletRecord".underscore         # => "bullet_record"
+  #     "BulletRecord::Errors".underscore # => "bullet_record/errors"
+  #
+  # As a rule of thumb you can think of +underscore+ as the inverse of +camelize+,
+  # though there are cases where that does not hold:
+  #
+  #     "SSLError".underscore.camelize # => "SslError"
+  underscore: (camel_cased_word) ->
+    self = camel_cased_word.gsub /::/, '/'
+    .gsub /([A-Z]+)([A-Z][a-z])/, ($) ->
+      "#{$[1]}_#{$[2]}"
+    .gsub /([a-z\d])([A-Z])/, ($) ->
+      "#{$[1]}_#{$[2]}"
+    .gsub /-/, '_'
+    self.downcase()
+
+  # Replaces underscores with dashes in the string.
+  #
+  #     "puni_puni" # => "puni-puni"
+  dasherize: (underscored_word) ->
+    underscored_word.gsub /_/, '-'
+
+  # Removes the module part from the expression in the string.
+  #
+  #     "BulletRecord.String.Inflections".demodulize # => "Inflections"
+  #     "Inflections".demodulize                     # => "Inflections"
+  demodulize: (class_name_in_module) ->
+    class_name_in_module.gsub /^.*\./, ''
+
+  # Turns a number into an ordinal string used to denote the position in an
+  # ordered sequence such as 1st, 2nd, 3rd, 4th.
+  #
+  #     ordinalize(1)     # => "1st"
+  #     ordinalize(2)     # => "2nd"
+  #     ordinalize(1002)  # => "1002nd"
+  #     ordinalize(1003)  # => "1003rd"
+  #     ordinalize(-11)   # => "-11th"
+  #     ordinalize(-1021) # => "-1021st"
+  ordinalize: (number) ->
+    number = parseInt number
+    if Math.abs(number)%100 in [11, 12, 13]
+      "#{number}th"
     else
-      result
+      switch Math.abs(number)%10
+        when 1 then "#{number}st"
+        when 2 then "#{number}nd"
+        when 3 then "#{number}rd"
+        else "#{number}th"
