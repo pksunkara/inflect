@@ -34,7 +34,7 @@ module.exports = (klass) ->
           replacementStr = replacement
           for i in [1..9]
             if match[i]
-              replacementStr = eval "replacementStr.gsub(/\\\$#{i}/, '#{match[i]}')"
+              replacementStr = replacementStr.gsub(new RegExp('\\\$' + i), match[i])
           result += replacementStr
         else
           result += replacement
