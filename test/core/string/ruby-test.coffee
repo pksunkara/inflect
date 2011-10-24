@@ -42,6 +42,12 @@ vows
         'with no groups': (topic) ->
           assert.equal topic.gsub(/[aeiou]/, '<$1>'), 'b<u>ll<e>t'
 
+    'Testing capitalize':
+      topic: 'employee salary'
+
+      'normal': (topic) ->
+        assert.equal topic.capitalize(), 'Employee Salary'
+
     'Testing upcase':
       topic: 'bullet'
 
@@ -53,6 +59,9 @@ vows
 
       'letter after slash': (topic) ->
         assert.equal 'bullet_record/errors'.upcase(), 'Bullet_Record/Errors'
+
+      'no letter after space': (topic) ->
+        assert.equal 'employee salary'.upcase(), 'Employee salary'
 
     'Testing downcase':
       topic: 'BULLET'

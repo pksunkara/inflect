@@ -8,7 +8,7 @@ vows
   .addBatch
     'Test inflector inflections':
       topic: ->
-        Inflections = require('../../src/inflector/inflections')
+        Inflections = require('../../src/inflector/inflections').Inflections
         new Inflections()
 
       'clear':
@@ -67,8 +67,7 @@ vows
 
       'irregular': (topic) ->
         topic.clear()
-        topic.uncountable 'octopi'
-        topic.uncountable 'octopus'
+        topic.uncountable ['octopi', 'octopus']
         assert.deepEqual topic.uncountables, ['octopi', 'octopus']
         topic.irregular 'octopus', 'octopi'
         assert.isEmpty topic.uncountables
@@ -78,5 +77,56 @@ vows
         assert.equal topic.plurals[0][1], '$1ctopi'
         assert.equal topic.plurals[1][0].toString(), /(o)ctopus$/i.toString()
         assert.equal topic.plurals[1][1].toString(), '$1ctopi'
+
+      'pluralize':
+        'empty': (topic) ->
+          assert.equal topic.pluralize(''), ''
+
+        'uncountable': (topic) ->
+          assert.deepEqual topic.uncountables, ['money', 'rice']
+          assert.equal topic.pluralize('money'), 'money'
+
+        'normal': (topic) ->
+          topic.irregular 'octopus', 'octopi'
+          assert.equal topic.pluralize('octopus'), 'octopi'
+
+      'singuralize':
+        'empty': (topic) ->
+          assert.equal topic.singularize(''), ''
+
+        'uncountable': (topic) ->
+          assert.deepEqual topic.uncountables, ['money', 'rice']
+          assert.equal topic.singularize('money'), 'money'
+
+        'normal': (topic) ->
+          topic.irregular 'octopus', 'octopi'
+          assert.equal topic.singularize('octopi'), 'octopus'
+
+      'humanize':
+        'normal': (topic) ->
+          assert.equal topic.humanize('employee_salary'), 'Employee salary'
+
+        'with _id': (topic) ->
+          assert.equal topic.humanize('author_id'), 'Author'
+
+      'titleize':
+        'normal': (topic) ->
+          assert.equal topic.titleize('man from the boondocks'), 'Man From The Boondocks'
+
+        'with hyphens': (topic) ->
+          assert.equal topic.titleize('x-men: the last stand'), 'X Men: The Last Stand'
+
+      'tableize': (topic) ->
+        topic.irregular 'octopus', 'octopi'
+        assert.equal topic.tableize('RawScaledOctopus'), 'raw_scaled_octopi'
+
+      'classify':
+        'underscore': (topic) ->
+          topic.irregular 'octopus', 'octopi'
+          assert.equal topic.classify('egg_and_octopi'), 'EggAndOctopus'
+
+        'normal': (topic) ->
+          topic.irregular 'octopus', 'octopi'
+          assert.equal topic.classify('octopi'), 'Octopus'
 
   .export(module)
