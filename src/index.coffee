@@ -19,7 +19,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-require('./core/string/ruby') String
+require('./core')
 
 ##Table of Contents
 module.exports =
@@ -34,3 +34,6 @@ module.exports =
   # The [StringInquirer](string-inquirer.html) class gives you a prettier
   # way to test for equality
   StringInquirer: require './string-inquirer'
+
+  # The [Inflector](inflector.html) class
+  Inflector: require './inflector'
