@@ -6,7 +6,7 @@ vows
   .addBatch
     'Test string equality':
       topic: ->
-        StringInquirer = require '../src/string-inquirer'
+        StringInquirer = require '../src/string_inquirer'
         new StringInquirer('production')
 
       'when they are':

@@ -10,12 +10,12 @@ module.exports =
   # By default, _camelize_ converts strings to UpperCamelCase. If the argument to _camelize_
   # is set to `false` then _camelize_ produces lowerCamelCase.
   #
-  # _camelize_ will also convert '/' to '::' which is useful for converting paths to namespaces.
+  # _camelize_ will also convert '/' to '.' which is useful for converting paths to namespaces.
   #
   #     "bullet_record".camelize               # => "BulletRecord"
   #     "bullet_record".camelize(false)        # => "bulletRecord"
-  #     "bullet_record/errors".camelize        # => "BulletRecord::Errors"
-  #     "bullet_record/errors".camelize(false) # => "bulletRecord::Errors"
+  #     "bullet_record/errors".camelize        # => "BulletRecord.Errors"
+  #     "bullet_record/errors".camelize(false) # => "bulletRecord.Errors"
   #
   # As a rule of thumb you can think of _camelize_ as the inverse of _underscore_,
   # though there are cases where that does not hold:
@@ -23,24 +23,24 @@ module.exports =
   #     "SSLError".underscore.camelize # => "SslError"
   camelize: (lower_case_and_underscored_word, first_letter_in_uppercase = true) ->
     result = lower_case_and_underscored_word.gsub /\/(.?)/, ($) ->
-      "::#{$[1].upcase()}"
+      ".#{$[1].upcase()}"
     .gsub /(?:_)(.)/, ($) ->
       $[1].upcase()
     if first_letter_in_uppercase then result.upcase() else result
 
   # Makes an underscored, lowercase form from the expression in the string.
   #
-  # Changes '::' to '/' to convert namespaces to paths.
+  # Changes '.' to '/' to convert namespaces to paths.
   #
   #     "BulletRecord".underscore         # => "bullet_record"
-  #     "BulletRecord::Errors".underscore # => "bullet_record/errors"
+  #     "BulletRecord.Errors".underscore # => "bullet_record/errors"
   #
   # As a rule of thumb you can think of +underscore+ as the inverse of +camelize+,
   # though there are cases where that does not hold:
   #
   #     "SSLError".underscore.camelize # => "SslError"
   underscore: (camel_cased_word) ->
-    self = camel_cased_word.gsub /::/, '/'
+    self = camel_cased_word.gsub /\./, '/'
     .gsub /([A-Z]+)([A-Z][a-z])/, "$1_$2"
     self = self.gsub /([a-z\d])([A-Z])/, "$1_$2"
     .gsub /-/, '_'

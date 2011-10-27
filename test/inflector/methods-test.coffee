@@ -17,17 +17,17 @@ vows
           assert.equal topic.camelize('bullet_record', false), 'bulletRecord'
 
         'path': (topic) ->
-          assert.equal topic.camelize('bullet_record/errors'), 'BulletRecord::Errors'
+          assert.equal topic.camelize('bullet_record/errors'), 'BulletRecord.Errors'
 
         'path with first letter lower': (topic) ->
-          assert.equal topic.camelize('bullet_record/errors', false), 'bulletRecord::Errors'
+          assert.equal topic.camelize('bullet_record/errors', false), 'bulletRecord.Errors'
 
       'underscore':
         'word': (topic) ->
           assert.equal topic.underscore('BulletRecord'), 'bullet_record'
 
         'path': (topic) ->
-          assert.equal topic.underscore('BulletRecord::Errors'), 'bullet_record/errors'
+          assert.equal topic.underscore('BulletRecord.Errors'), 'bullet_record/errors'
 
       'dasherize':
         'underscored_word': (topic) ->
