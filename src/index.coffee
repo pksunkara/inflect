@@ -31,9 +31,9 @@ module.exports =
   # and decoding binary data into base64 representation
   Base64: require './base64'
 
-  # The [StringInquirer](string-inquirer.html) class gives you a prettier
+  # The [StringInquirer](string_inquirer.html) class gives you a prettier
   # way to test for equality
-  StringInquirer: require './string-inquirer'
+  StringInquirer: require './string_inquirer'
 
   # The [Inflector](inflector.html) class
   Inflector: require './inflector'
