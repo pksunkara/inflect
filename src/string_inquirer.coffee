@@ -7,7 +7,7 @@
 # you can call this:
 #
 #     Bullet.env.production?  #=> true
-#     Bullet.env.staging?     #=> true
+#     Bullet.env.staging?     #=> false
 #
 
 class StringInquirer
