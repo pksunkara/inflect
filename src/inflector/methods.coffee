@@ -24,7 +24,7 @@ module.exports =
   camelize: (lower_case_and_underscored_word, first_letter_in_uppercase = true) ->
     result = lower_case_and_underscored_word.gsub /\/(.?)/, ($) ->
       ".#{$[1].upcase()}"
-    .gsub /(?:_)(.)/, ($) ->
+    result = result.gsub /(?:_)(.)/, ($) ->
       $[1].upcase()
     if first_letter_in_uppercase then result.upcase() else result
 
@@ -43,7 +43,7 @@ module.exports =
     self = camel_cased_word.gsub /\./, '/'
     self = self.gsub /([A-Z]+)([A-Z][a-z])/, "$1_$2"
     self = self.gsub /([a-z\d])([A-Z])/, "$1_$2"
-    .gsub /-/, '_'
+    self = self.gsub /-/, '_'
     self.toLowerCase()
 
   # Replaces underscores with dashes in the string.

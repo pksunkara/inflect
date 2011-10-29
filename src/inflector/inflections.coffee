@@ -135,7 +135,7 @@ class Inflections
   #     "x-men: the last stand".titleize  # => "X Men: The Last Stand"
   titleize: (word) ->
     self = @humanize(Inflector.underscore(word))
-    .gsub /[^a-zA-Z:']/, ' '
+    self = self.gsub /[^a-zA-Z:']/, ' '
     self.capitalize()
 
   # Create the name of a table like Bullet does for models to table names. This method

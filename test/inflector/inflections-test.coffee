@@ -3,6 +3,8 @@ assert = require 'assert'
 
 require('../../src/core/array/util')
 
+cases = require('./cases')
+
 vows
   .describe('Module Inflector inflections')
   .addBatch

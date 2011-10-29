@@ -145,16 +145,16 @@ module.exports =
     "underground"     : "Underground"
 
   MixtureToTitleCase:
-    'active_record'       : 'Active Record',
-    'ActiveRecord'        : 'Active Record',
-    'action web service'  : 'Action Web Service',
-    'Action Web Service'  : 'Action Web Service',
-    'Action web service'  : 'Action Web Service',
-    'actionwebservice'    : 'Actionwebservice',
-    'Actionwebservice'    : 'Actionwebservice',
-    "david's code"        : "David's Code",
-    "David's code"        : "David's Code",
-    "david's Code"        : "David's Code"
+    'bullet_record'       : 'Bullet Record',
+    'BulletRecord'        : 'Bullet Record',
+    'bullet web service'  : 'Bullet Web Service',
+    'Bullet Web Service'  : 'Bullet Web Service',
+    'Bullet web service'  : 'Bullet Web Service',
+    'bulletwebservice'    : 'Bulletwebservice',
+    'Bulletwebservice'    : 'Bulletwebservice',
+    "pavan's code"        : "Pavan's Code",
+    "Pavan's code"        : "Pavan's Code",
+    "pavan's Code"        : "Pavan's Code"
 
   OrdinalNumbers:
     "-1" : "-1st",

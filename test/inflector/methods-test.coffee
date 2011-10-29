@@ -38,6 +38,10 @@ vows
           words = cases.CamelWithModuleToUnderscoreWithSlash
           assert.equal topic.underscore(i), words[i] for i in Object.keys words
 
+        'from dasherize': (topic) ->
+          words = cases.UnderscoresToDashes
+          assert.equal topic.underscore(topic.dasherize(i)), i for i in Object.keys words
+
       'dasherize':
         'underscored_word': (topic) ->
           words = cases.UnderscoresToDashes
