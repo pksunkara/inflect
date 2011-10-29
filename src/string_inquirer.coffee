@@ -6,15 +6,13 @@
 #
 # you can call this:
 #
-#     Bullet.env.$ 'production'
+#     Bullet.env.production?  #=> true
+#     Bullet.env.staging?     #=> true
 #
 
 class StringInquirer
 
-  constructor: (str) ->
-    @val = str
-
-  $: (mode) ->
-    @val == mode
+  constructor: (env) ->
+    @[env] = 'true'
 
 module.exports = StringInquirer

@@ -11,9 +11,9 @@ vows
 
       'when they are':
         'equal': (topic) ->
-          assert.isTrue topic.$('production')
+          assert.isTrue topic.production?
 
         'not equal': (topic) ->
-          assert.isFalse topic.$('staging')
+          assert.isFalse topic.staging?
 
   .export(module)
