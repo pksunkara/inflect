@@ -12,9 +12,9 @@ module.exports =
   #
   # _camelize_ will also convert '/' to '.' which is useful for converting paths to namespaces.
   #
-  #     "bullet_record".camelize               # => "BulletRecord"
+  #     "bullet_record".camelize()             # => "BulletRecord"
   #     "bullet_record".camelize(false)        # => "bulletRecord"
-  #     "bullet_record/errors".camelize        # => "BulletRecord.Errors"
+  #     "bullet_record/errors".camelize()      # => "BulletRecord.Errors"
   #     "bullet_record/errors".camelize(false) # => "bulletRecord.Errors"
   #
   # As a rule of thumb you can think of _camelize_ as the inverse of _underscore_,
@@ -32,32 +32,42 @@ module.exports =
   #
   # Changes '.' to '/' to convert namespaces to paths.
   #
-  #     "BulletRecord".underscore         # => "bullet_record"
-  #     "BulletRecord.Errors".underscore # => "bullet_record/errors"
+  #     "BulletRecord".underscore()         # => "bullet_record"
+  #     "BulletRecord.Errors".underscore()  # => "bullet_record/errors"
   #
   # As a rule of thumb you can think of +underscore+ as the inverse of +camelize+,
   # though there are cases where that does not hold:
   #
-  #     "SSLError".underscore.camelize # => "SslError"
+  #     "SSLError".underscore().camelize() # => "SslError"
   underscore: (camel_cased_word) ->
     self = camel_cased_word.gsub /\./, '/'
-    .gsub /([A-Z]+)([A-Z][a-z])/, "$1_$2"
+    self = self.gsub /([A-Z]+)([A-Z][a-z])/, "$1_$2"
     self = self.gsub /([a-z\d])([A-Z])/, "$1_$2"
     .gsub /-/, '_'
-    self.downcase()
+    self.toLowerCase()
 
   # Replaces underscores with dashes in the string.
   #
-  #     "puni_puni" # => "puni-puni"
+  #     "puni_puni".dasherize() # => "puni-puni"
   dasherize: (underscored_word) ->
     underscored_word.gsub /_/, '-'
 
   # Removes the module part from the expression in the string.
   #
-  #     "BulletRecord.String.Inflections".demodulize # => "Inflections"
-  #     "Inflections".demodulize                     # => "Inflections"
+  #     "BulletRecord.String.Inflections".demodulize() # => "Inflections"
+  #     "Inflections".demodulize()                     # => "Inflections"
   demodulize: (class_name_in_module) ->
     class_name_in_module.gsub /^.*\./, ''
+
+  # Creates a foreign key name from a class name.
+  # _separate_class_name_and_id_with_underscore_ sets whether
+  # the method should put '_' between the name and 'id'.
+  #
+  #     "Message".foreign_key()      # => "message_id"
+  #     "Message".foreign_key(false) # => "messageid"
+  #     "Admin::Post".foreign_key()  # => "post_id"
+  foreign_key: (class_name, separate_class_name_and_id_with_underscore = true) ->
+    @underscore(@demodulize(class_name)) + (if separate_class_name_and_id_with_underscore then "_id" else "id")
 
   # Turns a number into an ordinal string used to denote the position in an
   # ordered sequence such as 1st, 2nd, 3rd, 4th.

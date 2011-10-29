@@ -3,6 +3,8 @@ assert = require 'assert'
 
 require('../../src/core/string/ruby')
 
+cases = require './cases'
+
 vows
   .describe('Module Inflector methods')
   .addBatch
@@ -11,27 +13,35 @@ vows
 
       'camelize':
         'word': (topic) ->
-          assert.equal topic.camelize('bullet_record'), 'BulletRecord'
+          words = cases.CamelToUnderscore
+          assert.equal topic.camelize(words[i]), i for i in Object.keys words
 
         'word with first letter lower': (topic) ->
-          assert.equal topic.camelize('bullet_record', false), 'bulletRecord'
+          words = cases.UnderscoreToLowerCamel
+          assert.equal topic.camelize(i, false), words[i] for i in Object.keys words
 
         'path': (topic) ->
-          assert.equal topic.camelize('bullet_record/errors'), 'BulletRecord.Errors'
+          words = cases.CamelWithModuleToUnderscoreWithSlash
+          assert.equal topic.camelize(words[i]), i for i in Object.keys words
 
         'path with first letter lower': (topic) ->
           assert.equal topic.camelize('bullet_record/errors', false), 'bulletRecord.Errors'
 
       'underscore':
         'word': (topic) ->
-          assert.equal topic.underscore('BulletRecord'), 'bullet_record'
+          words = cases.CamelToUnderscore
+          assert.equal topic.underscore(i), words[i] for i in Object.keys words
+          words = cases.CamelToUnderscoreWithoutReverse
+          assert.equal topic.underscore(i), words[i] for i in Object.keys words
 
         'path': (topic) ->
-          assert.equal topic.underscore('BulletRecord.Errors'), 'bullet_record/errors'
+          words = cases.CamelWithModuleToUnderscoreWithSlash
+          assert.equal topic.underscore(i), words[i] for i in Object.keys words
 
       'dasherize':
         'underscored_word': (topic) ->
-          assert.equal topic.dasherize('puni_puni'), 'puni-puni'
+          words = cases.UnderscoresToDashes
+          assert.equal topic.dasherize(i), words[i] for i in Object.keys words
 
       'demodulize':
         'module name': (topic) ->
@@ -40,23 +50,17 @@ vows
         'isolated module name': (topic) ->
           assert.equal topic.demodulize('Inflections'), 'Inflections'
 
-      'ordinalize':
-        '1st': (topic) ->
-          assert.equal topic.ordinalize(1), '1st'
+      'foreign_key':
+        'normal': (topic) ->
+          words = cases.ClassNameToForeignKeyWithoutUnderscore
+          assert.equal topic.foreign_key(i, false), words[i] for i in Object.keys words
 
-        '2nd': (topic) ->
-          assert.equal topic.ordinalize(2), '2nd'
+        'with_underscore': (topic) ->
+          words = cases.ClassNameToForeignKeyWithUnderscore
+          assert.equal topic.foreign_key(i), words[i] for i in Object.keys words
 
-        '1002nd': (topic) ->
-          assert.equal topic.ordinalize(1002), '1002nd'
-
-        '1003rd': (topic) ->
-          assert.equal topic.ordinalize(1003), '1003rd'
-
-        '-11th': (topic) ->
-          assert.equal topic.ordinalize(-11), '-11th'
-
-        '-1021st': (topic) ->
-          assert.equal topic.ordinalize(-1021), '-1021st'
+      'ordinalize': (topic) ->
+        words = cases.OrdinalNumbers
+        assert.equal topic.ordinalize(i), words[i] for i in Object.keys words
 
   .export(module)
