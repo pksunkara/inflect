@@ -124,7 +124,7 @@ class Inflections
       result = lower_case_and_underscored_word
       for human in @humans
         result = result.gsub human[0], human[1]
-      result.gsub(/_id$/, "").gsub(/_/," ").upcase()
+      result.gsub(/_id$/, "").gsub(/_/," ").capitalize(false)
 
   # Capitalizes all the words and replaces some characters in the string to create
   # a nicer looking title. _titleize_ is meant for creating pretty output. It is not

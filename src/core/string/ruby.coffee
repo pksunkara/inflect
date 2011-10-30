@@ -58,10 +58,11 @@ module.exports = (klass) ->
   # Returns a copy of capitalized string
   #
   #     "employee salary" #=> "Employee Salary"
-  klass::capitalize = ->
-    self = this
-    .gsub /\s([a-z])/, ($) ->
-      " #{$[1].toUpperCase()}"
+  klass::capitalize = (spaces = true) ->
+    self = this.toLowerCase()
+    if spaces
+      self = self.gsub /\s([a-z])/, ($) ->
+        " #{$[1].toUpperCase()}"
     self[0].toUpperCase() + self.substr(1)
 
   # Returns a copy of the String with the first letter being lower case

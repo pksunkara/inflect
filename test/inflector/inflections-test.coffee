@@ -106,26 +106,44 @@ vows
 
       'humanize':
         'normal': (topic) ->
-          assert.equal topic.humanize('employee_salary'), 'Employee salary'
+          words = cases.UnderscoreToHuman
+          assert.equal topic.humanize(i), words[i] for i in Object.keys words
+
+        'with rule': (topic) ->
+          topic.human /^(.*)_cnt$/i, '$1_count'
+          topic.human /^prefix_(.*)$/i, '$1'
+          assert.equal topic.humanize('jargon_cnt'), 'Jargon count'
+          assert.equal topic.humanize('prefix_request'), 'Request'
+
+        'with string': (topic) ->
+          topic.human 'col_rpted_bugs', 'Reported bugs'
+          assert.equal topic.humanize('col_rpted_bugs'), 'Reported bugs'
+          assert.equal topic.humanize('COL_rpted_bugs'), 'Col rpted bugs'
 
         'with _id': (topic) ->
           assert.equal topic.humanize('author_id'), 'Author'
 
       'titleize':
         'normal': (topic) ->
-          assert.equal topic.titleize('man from the boondocks'), 'Man From The Boondocks'
+          words = cases.MixtureToTitleCase
+          assert.equal topic.titleize(i), words[i] for i in Object.keys words
 
         'with hyphens': (topic) ->
           assert.equal topic.titleize('x-men: the last stand'), 'X Men: The Last Stand'
 
       'tableize': (topic) ->
-        topic.irregular 'octopus', 'octopi'
-        assert.equal topic.tableize('RawScaledOctopus'), 'raw_scaled_octopi'
+        words = cases.ClassNameToTableName
+        topic.plural /man$/, 'men'
+        topic.plural /child$/, 'children'
+        assert.equal topic.tableize(i), words[i] for i in Object.keys words
 
       'classify':
         'underscore': (topic) ->
-          topic.irregular 'octopus', 'octopi'
-          assert.equal topic.classify('egg_and_octopi'), 'EggAndOctopus'
+          words = cases.ClassNameToTableName
+          topic.singular /men$/, 'man'
+          topic.singular /children$/, 'child'
+          assert.equal topic.classify(words[i]), i for i in Object.keys words
+          assert.equal topic.classify('table_prefix.'+words[i]), i for i in Object.keys words
 
         'normal': (topic) ->
           topic.irregular 'octopus', 'octopi'
