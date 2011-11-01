@@ -1,7 +1,7 @@
 vows = require 'vows'
 assert = require 'assert'
 
-require('../../src/core/string/ruby')
+require('../../src/core')
 
 cases = require './cases'
 

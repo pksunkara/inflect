@@ -1,9 +1,9 @@
 # A singleton instance of this class is yielded by Inflector.inflections, which can then be used to specify additional
 # inflection rules. Examples:
 #
-#     BulletSupport.Inflector.inflections ($) ->
-#       $.plural /^(ox)$/i, '\1\2en'
-#       $.singular /^(ox)en/i, '\1'
+#     BulletSupport.Inflector.Inflections ($) ->
+#       $.plural /^(ox)$/i, '$1en'
+#       $.singular /^(ox)en/i, '$1'
 #     
 #       $.irregular 'octopus', 'octopi'
 #     
@@ -19,6 +19,7 @@ class Inflections
 
   constructor: ->
     [@plurals, @singulars, @uncountables, @humans] = [[], [], [], []]
+    require('../inflections') this
 
   # Specifies a new pluralization rule and its replacement. The rule can either be a string or a regular expression.
   # The replacement should always be a string that may include references to the matched data from the rule.
@@ -58,7 +59,7 @@ class Inflections
   # When using a regular expression based replacement, the normal humanize formatting is called after the replacement.
   # When a string is used, the human form should be specified as desired (example: 'The name', not 'the_name')
   #
-  #     human /_cnt$/i, '$1_count'
+  #     human /(.*)_cnt$/i, '$1_count'
   #     human "legacy_col_person_name", "Name"
   human: (rule, replacement) ->
     @humans.unshift [rule, replacement]
