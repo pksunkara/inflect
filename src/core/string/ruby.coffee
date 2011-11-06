@@ -30,11 +30,16 @@ module.exports = (klass) ->
           match[1] = match[1] or match[0]
           result += replacement(match)
         else if replacement.match /\$[1-9]/
+          matchCmprPrev = match
+          matchCmpr = match.del(undefined)
+          while matchCmpr!=matchCmprPrev
+            matchCmprPrev = matchCmpr
+            matchCmpr = matchCmpr.del(undefined)
           match[1] = match[1] or match[0]
           replacementStr = replacement
           for i in [1..9]
-            if match[i]
-              replacementStr = replacementStr.gsub(new RegExp('\\\$' + i), match[i])
+            if matchCmpr[i]
+              replacementStr = replacementStr.gsub(new RegExp("\\\$#{i}"), matchCmpr[i])
           result += replacementStr
         else
           result += replacement

@@ -1,7 +1,7 @@
 # A singleton instance of this class is yielded by Inflector.inflections, which can then be used to specify additional
 # inflection rules. Examples:
 #
-#     BulletSupport.Inflector.Inflections ($) ->
+#     BulletSupport.Inflector.Inflections.inflect ($) ->
 #       $.plural /^(ox)$/i, '$1en'
 #       $.singular /^(ox)en/i, '$1'
 #     
@@ -20,6 +20,10 @@ class Inflections
   constructor: ->
     [@plurals, @singulars, @uncountables, @humans] = [[], [], [], []]
     require('../inflections') this
+
+  # Gives easy access to add inflections to this class
+  inflect: (inflections_function) ->
+    inflections_function this
 
   # Specifies a new pluralization rule and its replacement. The rule can either be a string or a regular expression.
   # The replacement should always be a string that may include references to the matched data from the rule.
@@ -82,6 +86,14 @@ class Inflections
      when 'all' then [@plurals, @singulars, @uncountables, @humans] = [[], [], [], []]
      else @[scope] = []
 
+  # Checks a given word for uncountability
+  #
+  #     "money".uncountability     # => true
+  #     "my money".uncountability  # => true
+  uncountability: (word) ->
+    @uncountables.some (ele, ind, arr) ->
+      word.match(new RegExp("(\\b|_)#{ele}$", 'i'))?
+
   # Returns the plural form of the word in the string.
   #
   #     "post".pluralize             # => "posts"
@@ -91,12 +103,12 @@ class Inflections
   #     "CamelOctopus".pluralize     # => "CamelOctopi"
   pluralize: (word) ->
       result = word
-      if word=='' or @uncountables.indexOf(result.downcase())!=-1
+      if word=='' or @uncountability(word)
         result
       else
         for plural in @plurals
           result = result.gsub plural[0], plural[1]
-          break if result!=word
+          break if word.match(plural[0])?
         result
 
   # The reverse of _pluralize_, returns the singular form of a word in a string.
@@ -108,12 +120,12 @@ class Inflections
   #     "CamelOctopi".singularize      # => "CamelOctopus"
   singularize: (word) ->
     result = word
-    if word=='' or @uncountables.indexOf(result.downcase())!=-1
+    if word=='' or @uncountability(word)
       result
     else
       for singular in @singulars
         result = result.gsub singular[0], singular[1]
-        break if result!=word
+        break if word.match(singular[0])
       result
 
   # Capitalizes the first word and turns underscores into spaces and strips a

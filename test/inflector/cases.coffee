@@ -13,6 +13,7 @@ module.exports =
     "fish"        : "fish",
     "jeans"       : "jeans",
     "funky jeans" : "funky jeans",
+    "my money"   : "my money",
 
     "category"    : "categories",
     "query"       : "queries",
