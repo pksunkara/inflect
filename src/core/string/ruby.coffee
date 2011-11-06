@@ -78,7 +78,7 @@ module.exports = (klass) ->
 
   # Returns a string value for the String object
   #
-  #     "hello"._value() #=> "hello"
+  #     "hello".value() #=> "hello"
   klass::value = ->
     @substr(0)
 

@@ -4,13 +4,13 @@ assert = require 'assert'
 require('../../src/core')
 
 cases = require('./cases')
+Inflections = require('../../src/inflector/inflections').Inflections
 
 vows
   .describe('Module Inflector inflections')
   .addBatch
     'Test inflector inflections':
       topic: ->
-        Inflections = require('../../src/inflector/inflections').Inflections
         new Inflections()
 
       'clear':
@@ -30,22 +30,25 @@ vows
 
       'uncountable':
         'one item': (topic) ->
+          topic.clear()
           assert.isEmpty topic.uncountables
           topic.uncountable 'money'
           assert.deepEqual topic.uncountables, ['money']
 
         'many items': (topic) ->
-          topic.clear 'uncountables'
+          topic.clear()
           assert.isEmpty topic.uncountables
           topic.uncountable ['money', 'rice']
           assert.deepEqual topic.uncountables, ['money', 'rice']
 
       'human': (topic) ->
+        topic.clear()
         assert.isEmpty topic.humans
         topic.human "legacy_col_person_name", "Name"
         assert.deepEqual topic.humans, [["legacy_col_person_name", "Name"]]
 
       'plural': (topic) ->
+        topic.clear()
         assert.isEmpty topic.plurals
         topic.plural 'ox', 'oxen'
         assert.deepEqual topic.plurals, [['ox', 'oxen']]
@@ -57,6 +60,7 @@ vows
         assert.isEmpty topic.uncountables
 
       'singular': (topic) ->
+        topic.clear()
         assert.isEmpty topic.singulars
         topic.singular 'ox', 'oxen'
         assert.deepEqual topic.singulars, [['ox', 'oxen']]
@@ -80,29 +84,65 @@ vows
         assert.equal topic.plurals[1][0].toString(), /(o)ctopus$/i.toString()
         assert.equal topic.plurals[1][1].toString(), '$1ctopi'
 
+  .addBatch
+    'Test inflector inflection methods':
+      topic: ->
+        new Inflections()
+
       'pluralize':
         'empty': (topic) ->
           assert.equal topic.pluralize(''), ''
 
         'uncountable': (topic) ->
-          assert.deepEqual topic.uncountables, ['money', 'rice']
           assert.equal topic.pluralize('money'), 'money'
 
         'normal': (topic) ->
           topic.irregular 'octopus', 'octopi'
           assert.equal topic.pluralize('octopus'), 'octopi'
 
+        'cases': (topic) ->
+          words = cases.SingularToPlural
+          assert.equal topic.pluralize(i), words[i] for i in Object.keys words
+          assert.equal topic.pluralize(i.capitalize()), words[i].capitalize() for i in Object.keys words
+
+        'cases plural': (topic) ->
+          words = cases.SingularToPlural
+          assert.equal topic.pluralize(words[i]), words[i] for i in Object.keys words
+          assert.equal topic.pluralize(words[i].capitalize()), words[i].capitalize() for i in Object.keys words
+
       'singuralize':
         'empty': (topic) ->
           assert.equal topic.singularize(''), ''
 
         'uncountable': (topic) ->
-          assert.deepEqual topic.uncountables, ['money', 'rice']
           assert.equal topic.singularize('money'), 'money'
 
         'normal': (topic) ->
           topic.irregular 'octopus', 'octopi'
           assert.equal topic.singularize('octopi'), 'octopus'
+
+        'cases': (topic) ->
+          words = cases.SingularToPlural
+          assert.equal topic.singularize(words[i]), i for i in Object.keys words
+          assert.equal topic.singularize(words[i].capitalize()), i.capitalize() for i in Object.keys words
+
+      'uncountablility':
+        'normal': (topic) ->
+          words = topic.uncountables
+          assert.equal topic.singularize(i), i for i in words
+          assert.equal topic.pluralize(i), i for i in words
+          assert.equal topic.singularize(i), topic.pluralize(i) for i in words
+
+        'greedy': (topic) ->
+          uncountable_word = "ors"
+          countable_word = "sponsor"
+          topic.uncountable uncountable_word
+          assert.equal topic.singularize(uncountable_word), uncountable_word
+          assert.equal topic.pluralize(uncountable_word), uncountable_word
+          assert.equal topic.pluralize(uncountable_word), topic.singularize(uncountable_word)
+          assert.equal topic.singularize(countable_word), 'sponsor'
+          assert.equal topic.pluralize(countable_word), 'sponsors'
+          assert.equal topic.singularize(topic.pluralize(countable_word)), 'sponsor'
 
       'humanize':
         'normal': (topic) ->
@@ -133,15 +173,11 @@ vows
 
       'tableize': (topic) ->
         words = cases.ClassNameToTableName
-        topic.plural /man$/, 'men'
-        topic.plural /child$/, 'children'
         assert.equal topic.tableize(i), words[i] for i in Object.keys words
 
       'classify':
         'underscore': (topic) ->
           words = cases.ClassNameToTableName
-          topic.singular /men$/, 'man'
-          topic.singular /children$/, 'child'
           assert.equal topic.classify(words[i]), i for i in Object.keys words
           assert.equal topic.classify('table_prefix.'+words[i]), i for i in Object.keys words
 

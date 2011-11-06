@@ -48,12 +48,12 @@ class Inflections
       @plural new RegExp("(#{plural[0]})#{plural[1..-1]}$", "i"), '$1' + plural[1..-1]
       @singular new RegExp("(#{plural[0]})#{plural[1..-1]}$", "i"), '$1' + singular[1..-1]
     else
-      @plural new RegExp("#{singular[0].toUpperCase()}(?i)#{singular[1..-1]}$"), plural[0].toUpperCase() + plural[1..-1]
-      @plural new RegExp("#{singular[0].toLowerCase()}(?i)#{singular[1..-1]}$"), plural[0].toLowerCase() + plural[1..-1]
-      @plural new RegExp("#{plural[0].toUpperCase()}(?i)#{plural[1..-1]}$"), plural[0].toUpperCase() + plural[1..-1]
-      @plural new RegExp("#{plural[0].toLowerCase()}(?i)#{plural[1..-1]}$"), plural[0].toLowerCase() + plural[1..-1]
-      @singular new RegExp("#{plural[0].toUpperCase()}(?i)#{plural[1..-1]}$"), singular[0].toUpperCase() + singular[1..-1]
-      @singular new RegExp("#{plural[0].toLowerCase()}(?i)#{plural[1..-1]}$"), singular[0].toLowerCase() + singular[1..-1]
+      @plural new RegExp("#{singular[0].toUpperCase()}#{singular[1..-1]}$"), plural[0].toUpperCase() + plural[1..-1]
+      @plural new RegExp("#{singular[0].toLowerCase()}#{singular[1..-1]}$"), plural[0].toLowerCase() + plural[1..-1]
+      @plural new RegExp("#{plural[0].toUpperCase()}#{plural[1..-1]}$"), plural[0].toUpperCase() + plural[1..-1]
+      @plural new RegExp("#{plural[0].toLowerCase()}#{plural[1..-1]}$"), plural[0].toLowerCase() + plural[1..-1]
+      @singular new RegExp("#{plural[0].toUpperCase()}#{plural[1..-1]}$"), singular[0].toUpperCase() + singular[1..-1]
+      @singular new RegExp("#{plural[0].toLowerCase()}#{plural[1..-1]}$"), singular[0].toLowerCase() + singular[1..-1]
 
   # Specifies a humanized form of a string by a regular expression rule or by a string mapping.
   # When using a regular expression based replacement, the normal humanize formatting is called after the replacement.
