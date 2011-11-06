@@ -9,6 +9,9 @@ vows
         StringInquirer = require '../src/string_inquirer'
         new StringInquirer('production')
 
+      'value': (topic) ->
+        assert.equal topic.value, 'production'
+
       'when they are':
         'equal': (topic) ->
           assert.isTrue topic.production?

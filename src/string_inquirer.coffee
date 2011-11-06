@@ -2,7 +2,7 @@
 # for equality. The value returned by `Bullet.env` is wrapped
 # in a StringInquirer object so instead of calling this:
 #
-#     Bullet.env == "production"
+#     Bullet.env.value == "production"
 #
 # you can call this:
 #
@@ -13,6 +13,7 @@
 class StringInquirer
 
   constructor: (env) ->
+    @value = env
     @[env] = 'true'
 
 module.exports = StringInquirer
