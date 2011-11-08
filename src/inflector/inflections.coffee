@@ -1,7 +1,7 @@
 # A singleton instance of this class is yielded by Inflector.inflections, which can then be used to specify additional
 # inflection rules. Examples:
 #
-#     BulletSupport.Inflector.Inflections.inflect ($) ->
+#     BulletSupport.Inflector.inflect ($) ->
 #       $.plural /^(ox)$/i, '$1en'
 #       $.singular /^(ox)en/i, '$1'
 #     
@@ -13,17 +13,11 @@
 # pluralization and singularization rules that is runs. This guarantees that your rules run before any of the rules that may
 # already have been loaded.
 
-Inflector = require './methods'
-
 class Inflections
 
   constructor: ->
     [@plurals, @singulars, @uncountables, @humans] = [[], [], [], []]
     require('../inflections') this
-
-  # Gives easy access to add inflections to this class
-  inflect: (inflections_function) ->
-    inflections_function this
 
   # Specifies a new pluralization rule and its replacement. The rule can either be a string or a regular expression.
   # The replacement should always be a string that may include references to the matched data from the rule.
@@ -86,92 +80,9 @@ class Inflections
      when 'all' then [@plurals, @singulars, @uncountables, @humans] = [[], [], [], []]
      else @[scope] = []
 
-  # Checks a given word for uncountability
-  #
-  #     "money".uncountability     # => true
-  #     "my money".uncountability  # => true
-  uncountability: (word) ->
-    @uncountables.some (ele, ind, arr) ->
-      word.match(new RegExp("(\\b|_)#{ele}$", 'i'))?
+  # Clears the loaded inflections and make them default
+  default: ->
+    [@plurals, @singulars, @uncountables, @humans] = [[], [], [], []]
+    require('../inflections') this
 
-  # Returns the plural form of the word in the string.
-  #
-  #     "post".pluralize             # => "posts"
-  #     "octopus".pluralize          # => "octopi"
-  #     "sheep".pluralize            # => "sheep"
-  #     "words".pluralize            # => "words"
-  #     "CamelOctopus".pluralize     # => "CamelOctopi"
-  pluralize: (word) ->
-      result = word
-      if word=='' or @uncountability(word)
-        result
-      else
-        for plural in @plurals
-          result = result.gsub plural[0], plural[1]
-          break if word.match(plural[0])?
-        result
-
-  # The reverse of _pluralize_, returns the singular form of a word in a string.
-  #
-  #     "posts".singularize            # => "post"
-  #     "octopi".singularize           # => "octopus"
-  #     "sheep".singularize            # => "sheep"
-  #     "word".singularize             # => "word"
-  #     "CamelOctopi".singularize      # => "CamelOctopus"
-  singularize: (word) ->
-    result = word
-    if word=='' or @uncountability(word)
-      result
-    else
-      for singular in @singulars
-        result = result.gsub singular[0], singular[1]
-        break if word.match(singular[0])
-      result
-
-  # Capitalizes the first word and turns underscores into spaces and strips a
-  # trailing "_id", if any. Like _titleize_, this is meant for creating pretty output.
-  #
-  #     "employee_salary" # => "Employee salary"
-  #     "author_id"       # => "Author"
-  humanize: (lower_case_and_underscored_word) ->
-      result = lower_case_and_underscored_word
-      for human in @humans
-        result = result.gsub human[0], human[1]
-      result.gsub(/_id$/, "").gsub(/_/," ").capitalize(false)
-
-  # Capitalizes all the words and replaces some characters in the string to create
-  # a nicer looking title. _titleize_ is meant for creating pretty output. It is not
-  # used in the Bullet internals.
-  #
-  #
-  #     "man from the boondocks".titleize # => "Man From The Boondocks"
-  #     "x-men: the last stand".titleize  # => "X Men: The Last Stand"
-  titleize: (word) ->
-    self = @humanize(Inflector.underscore(word))
-    self = self.gsub /[^a-zA-Z:']/, ' '
-    self.capitalize()
-
-  # Create the name of a table like Bullet does for models to table names. This method
-  # uses the _pluralize_ method on the last word in the string.
-  #
-  #     "RawScaledScorer".tableize # => "raw_scaled_scorers"
-  #     "egg_and_ham".tableize     # => "egg_and_hams"
-  #     "fancyCategory".tableize   # => "fancy_categories"
-  tableize: (class_name) ->
-    @pluralize Inflector.underscore(class_name)
-
-  # Create a class name from a plural table name like Bullet does for table names to models.
-  # Note that this returns a string and not a Class.
-  #
-  #     "egg_and_hams".classify # => "EggAndHam"
-  #     "posts".classify        # => "Post"
-  #
-  # Singular names are not handled correctly:
-  #
-  #     "business".classify     # => "Busines"
-  classify: (table_name) ->
-    Inflector.camelize @singularize(table_name.gsub(/.*\./, ''))
-
-Inflector.Inflections = Inflections
-
-module.exports = Inflector
+module.exports = new Inflections()

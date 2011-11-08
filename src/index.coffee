@@ -35,5 +35,5 @@ module.exports =
   # way to test for equality
   StringInquirer: require './string_inquirer'
 
-  # The [Inflector](inflector.html) class
-  Inflector: require './inflector'
+  # The [Inflector](inflector/methods.html) class
+  Inflector: require './inflector/methods'

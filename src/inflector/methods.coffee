@@ -7,8 +7,15 @@
 
 module.exports =
 
+  # Import inflections instance
+  inflections: require './inflections'
+
+  # Gives easy access to add inflections to this class
+  inflect: (inflections_function) ->
+    inflections_function @inflections
+
   # By default, _camelize_ converts strings to UpperCamelCase. If the argument to _camelize_
-  # is set to `false` then _camelize_ produces lowerCamelCase.
+  # is set to _false_ then _camelize_ produces lowerCamelCase.
   #
   # _camelize_ will also convert '/' to '.' which is useful for converting paths to namespaces.
   #
@@ -48,7 +55,7 @@ module.exports =
 
   # Replaces underscores with dashes in the string.
   #
-  #     "puni_puni".dasherize() # => "puni-puni"
+  #     "puni_puni".dasherize()   # => "puni-puni"
   dasherize: (underscored_word) ->
     underscored_word.gsub /_/, '-'
 
@@ -88,3 +95,89 @@ module.exports =
         when 2 then "#{number}nd"
         when 3 then "#{number}rd"
         else "#{number}th"
+
+  # Checks a given word for uncountability
+  #
+  #     "money".uncountability()     # => true
+  #     "my money".uncountability()  # => true
+  uncountability: (word) ->
+    @inflections.uncountables.some (ele, ind, arr) ->
+      word.match(new RegExp("(\\b|_)#{ele}$", 'i'))?
+
+  # Returns the plural form of the word in the string.
+  #
+  #     "post".pluralize()             # => "posts"
+  #     "octopus".pluralize()          # => "octopi"
+  #     "sheep".pluralize()            # => "sheep"
+  #     "words".pluralize()            # => "words"
+  #     "CamelOctopus".pluralize()     # => "CamelOctopi"
+  pluralize: (word) ->
+      result = word
+      if word=='' or @uncountability(word)
+        result
+      else
+        for plural in @inflections.plurals
+          result = result.gsub plural[0], plural[1]
+          break if word.match(plural[0])?
+        result
+
+  # The reverse of _pluralize_, returns the singular form of a word in a string.
+  #
+  #     "posts".singularize()            # => "post"
+  #     "octopi".singularize()           # => "octopus"
+  #     "sheep".singularize()            # => "sheep"
+  #     "word".singularize()             # => "word"
+  #     "CamelOctopi".singularize()      # => "CamelOctopus"
+  singularize: (word) ->
+    result = word
+    if word=='' or @uncountability(word)
+      result
+    else
+      for singular in @inflections.singulars
+        result = result.gsub singular[0], singular[1]
+        break if word.match(singular[0])
+      result
+
+  # Capitalizes the first word and turns underscores into spaces and strips a
+  # trailing "_id", if any. Like _titleize_, this is meant for creating pretty output.
+  #
+  #     "employee_salary".humanize()   # => "Employee salary"
+  #     "author_id".humanize()         # => "Author"
+  humanize: (lower_case_and_underscored_word) ->
+      result = lower_case_and_underscored_word
+      for human in @inflections.humans
+        result = result.gsub human[0], human[1]
+      result.gsub(/_id$/, "").gsub(/_/," ").capitalize(false)
+
+  # Capitalizes all the words and replaces some characters in the string to create
+  # a nicer looking title. _titleize_ is meant for creating pretty output. It is not
+  # used in the Bullet internals.
+  #
+  #
+  #     "man from the boondocks".titleize()   # => "Man From The Boondocks"
+  #     "x-men: the last stand".titleize()    # => "X Men: The Last Stand"
+  titleize: (word) ->
+    self = @humanize @underscore(word)
+    self = self.gsub /[^a-zA-Z:']/, ' '
+    self.capitalize()
+
+  # Create the name of a table like Bullet does for models to table names. This method
+  # uses the _pluralize_ method on the last word in the string.
+  #
+  #     "RawScaledScorer".tableize()   # => "raw_scaled_scorers"
+  #     "egg_and_ham".tableize()       # => "egg_and_hams"
+  #     "fancyCategory".tableize()     # => "fancy_categories"
+  tableize: (class_name) ->
+    @pluralize @underscore(class_name)
+
+  # Create a class name from a plural table name like Bullet does for table names to models.
+  # Note that this returns a string and not a Class.
+  #
+  #     "egg_and_hams".classify()   # => "EggAndHam"
+  #     "posts".classify()          # => "Post"
+  #
+  # Singular names are not handled correctly:
+  #
+  #     "business".classify()       # => "Busines"
+  classify: (table_name) ->
+    @camelize @singularize(table_name.gsub(/.*\./, ''))
