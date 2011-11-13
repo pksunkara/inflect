@@ -22,4 +22,13 @@ vows
       'element does not exist': (topic) ->
         assert.deepEqual topic.del('d'), ['a', 'b', 'c']
 
+    'Testing utils':
+      topic: ['a', 'b', 'c']
+
+      'first': (topic) ->
+        assert.equal topic.first(), 'a'
+
+      'last': (topic) ->
+        assert.equal topic.last(), 'c'
+
   .export(module)
