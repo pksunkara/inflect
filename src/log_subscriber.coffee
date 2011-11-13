@@ -4,14 +4,14 @@
 #
 # An example would be BulletRecord log subscriber responsible for logging queries:
 #
-# 	  class LogSubscriber extends BulletSupport.LogSubscriber
-#   	  sql: (event) ->
+#     class LogSubscriber extends BulletSupport.LogSubscriber
+#       sql: (event) ->
 #   	    "#{event.payload.name} (#{event.duration}) #{event.payload.sql}"
 #
 # And it's finally registered as:
 #
 #     TODO
-#   	BulletRecord.LogSubscriber.attach_to bullet_record
+#     BulletRecord.LogSubscriber.attach_to bullet_record
 #
 # Since we need to know all instance methods before attaching the log subscriber,
 # the line above should be called after your _BulletRecord.LogSubscriber_ definition.

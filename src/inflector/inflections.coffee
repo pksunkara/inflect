@@ -80,7 +80,7 @@ class Inflections
      when 'all' then [@plurals, @singulars, @uncountables, @humans] = [[], [], [], []]
      else @[scope] = []
 
-  # Clears the loaded inflections and make them default
+  # Clears the loaded inflections and initializes them to [default](../inflections.html)
   default: ->
     [@plurals, @singulars, @uncountables, @humans] = [[], [], [], []]
     require('../inflections') this

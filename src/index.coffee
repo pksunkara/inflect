@@ -39,5 +39,5 @@ module.exports =
   # way to test for equality
   StringInquirer: require './string_inquirer'
 
-  # The [Inflector](inflector/methods.html) class
+  # The [Inflector](inflector/methods.html) class contains methods to inflectionize strings
   Inflector: require './inflector/methods'

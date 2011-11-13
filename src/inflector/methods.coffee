@@ -7,7 +7,7 @@
 
 module.exports =
 
-  # Import inflections instance
+  # Import [inflections](inflections.html) instance
   inflections: require './inflections'
 
   # Gives easy access to add inflections to this class
