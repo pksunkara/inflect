@@ -23,5 +23,5 @@
     "test": "vows --spec $(find test -name '*-test.coffee')",
     "preinstall": "cake docs && cake lib"
   },
-  "engines": { "node": ">= 0.4.1 < 0.5.0" }
+  "engines": { "node": ">= 0.6.1" }
 }
