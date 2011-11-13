@@ -27,6 +27,10 @@ module.exports =
   # The [version](version.html) class gives bullet-support's version
   Version: require './version'
 
+  # The [LogSubscriber](log_subscriber.html) class dispatches notifications to
+  # a registered object based on its given namespace
+  LogSubscriber: require './log_subscriber'
+
   # The [Base64](base64.html) class provides utility methods for encoding
   # and decoding binary data into base64 representation
   Base64: require './base64'
