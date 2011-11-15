@@ -1,20 +1,21 @@
 {
   "name": "bullet-support",
-  "description": "support for MVC framework with bullet speed",
+  "description": "support module of bullet MVC framework for nodejs",
   "version": "1.0.0-rc1",
-  "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com>",
+  "homepage": "http://bulletjs.github.com/support",
+  "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com> (http://pkumar.github.com)",
   "contributors": [
     { "name": "Pavan Kumar Sunkara", "email": "pavan.sss1991@gmail.com" }
   ],
   "dependencies": {
     "eventemitter2": "0.4.x",
     "docco": "*",
-    "coffee-script": "*"
+    "coffee-script": "~1.1.3"
   },
   "devDependencies": {
-    "vows": "*"
+    "vows": "~0.5.13"
   },
-  "keywords": ["support", "framework", "rails", "web", "rest", "restful"],
+  "keywords": ["support", "framework", "rails", "web", "rest", "restful", "bullet", "mvc"],
   "repository": {
     "type": "git",
     "url": "git://github.com/bulletjs/support.git"
@@ -24,5 +25,5 @@
     "test": "vows --spec $(find test -name '*-test.coffee')",
     "preinstall": "cake docs && cake lib"
   },
-  "engines": { "node": ">= 0.6.1" }
+  "engines": { "node": "~0.6.1" }
 }
