@@ -1,5 +1,5 @@
 {
-  "name": "inflect",
+  "name": "node-inflect",
   "version": "0.1.0",
   "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com> (pksunkara.github.com)",
   "description": "custom inflections for nodejs",
@@ -9,8 +9,6 @@
     "url": "git://github.com/pksunkara/inflect.git"
   },
   "keywords": [
-    "inflect",
-    "inflection",
     "singular",
     "plural",
     "camelize",
