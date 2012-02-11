@@ -1,29 +1,44 @@
 {
-  "name": "bullet-support",
-  "description": "support module of bullet MVC framework for nodejs",
-  "version": "1.0.0-rc1",
-  "homepage": "http://bulletjs.github.com/support",
-  "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com> (http://pkumar.github.com)",
+  "name": "inflect",
+  "description": "customizable inflections for nodejs",
+  "version": "0.1.0",
+  "homepage": "http://pksunkara.github.com/inflect",
+  "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com> (http://pksunkara.github.com)",
   "contributors": [
     { "name": "Pavan Kumar Sunkara", "email": "pavan.sss1991@gmail.com" }
   ],
-  "dependencies": {
-    "eventemitter2": "0.4.x",
-    "docco": "*",
-    "coffee-script": "~1.1.3"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "coffee-script": "~1.1.3",
     "vows": "~0.5.13"
   },
-  "keywords": ["support", "framework", "rails", "web", "rest", "restful", "bullet", "mvc"],
+  "keywords": [
+    "inflect",
+    "inflections",
+    "singular",
+    "plural",
+    "camelize",
+    "underscore",
+    "dasherize",
+    "demodulize",
+    "foreign_key",
+    "ordinalize",
+    "uncountability",
+    "pluralize",
+    "singularize",
+    "pluralize",
+    "titleize",
+    "tableize",
+    "classify"
+  ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/bulletjs/support.git"
+    "url": "git://github.com/pksunkara/inflect.git"
   },
-  "main": "./lib/index",
+  "main": "./lib/inflect",
   "scripts": {
     "test": "vows --spec $(find test -name '*-test.coffee')",
-    "preinstall": "cake docs && cake lib"
+    "prepublish": "cake lib"
   },
   "engines": { "node": "~0.6.1" }
 }
