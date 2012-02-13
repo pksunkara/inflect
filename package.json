@@ -26,8 +26,7 @@
   ],
   "homepage": "http://pksunkara.github.com/inflect",
   "scripts": {
-    "test": "vows --spec $(find test -name '*-test.coffee')",
-    "prepublish": "cake lib"
+    "test": "vows --spec $(find test -name '*-test.js')"
   },
   "contributors": [
     {
@@ -37,7 +36,6 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "coffee-script": "~1.2.0",
     "vows": "~0.6.1"
   },
   "engines": {
