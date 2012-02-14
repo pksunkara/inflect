@@ -16,6 +16,13 @@ Require the module before using
 var inflect = require('node-inflect');
 ```
 
+All the below api functions can be called directly on a string
+
+```js
+inflect.titleize('messages to store') // === 'Messages To Store'
+'messages to store'.titleize // === 'Messages To Store'
+```
+
 ### Pluralize
 
 ```js
@@ -96,6 +103,8 @@ inflect.foreign_key('MessageBusProperty', false); // === 'message_bus_propertyid
 ```js
 inflect.ordinalize( '1' ); // === '1st'
 ```
+
+## Custom rules for inflection
 
 ### Custom plural
 
