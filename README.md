@@ -1,11 +1,11 @@
-# node-inflect
+# inflect
 
 customizable inflections for nodejs
 
 ## Installation
 
 ```bash
-npm install node-inflect
+npm install i
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ npm install node-inflect
 Require the module before using
 
 ```js
-var inflect = require('node-inflect');
+var inflect = require('i');
 ```
 
 All the below api functions can be called directly on a string
