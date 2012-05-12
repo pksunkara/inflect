@@ -13,7 +13,7 @@ npm install i
 Require the module before using
 
 ```js
-var inflect = require('i');
+var inflect = require('i')();
 ```
 
 All the below api functions can be called directly on a string
@@ -21,6 +21,12 @@ All the below api functions can be called directly on a string
 ```js
 inflect.titleize('messages to store') // === 'Messages To Store'
 'messages to store'.titleize // === 'Messages To Store'
+```
+
+only if `true` is passed while initiating
+
+```js
+var inflect = require('i')(true);
 ```
 
 ### Pluralize
