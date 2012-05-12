@@ -5,9 +5,6 @@
 
   assert = require('assert');
 
-  require('../../lib/utils/array');
-  require('../../lib/utils/string');
-
   vows.describe('Module Inflector inflections').addBatch({
     'Test inflector inflections': {
       topic: require('../../lib/inflections'),

@@ -1,12 +1,11 @@
 (function() {
-  var assert, cases, vows;
+  var assert, cases, vows, util;
 
   vows = require('vows');
 
   assert = require('assert');
 
-  require('../../lib/utils/array');
-  require('../../lib/utils/string');
+  util = require('../../lib/util');
 
   cases = require('./cases');
 
@@ -180,7 +179,7 @@
           _results = [];
           for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
             i = _ref2[_j];
-            _results.push(assert.equal(topic.pluralize(i.capitalize()), words[i].capitalize()));
+            _results.push(assert.equal(topic.pluralize(util.string.capitalize(i)), util.string.capitalize(words[i])));
           }
           return _results;
         },
@@ -196,7 +195,7 @@
           _results = [];
           for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
             i = _ref2[_j];
-            _results.push(assert.equal(topic.pluralize(words[i].capitalize()), words[i].capitalize()));
+            _results.push(assert.equal(topic.pluralize(util.string.capitalize(words[i])), util.string.capitalize(words[i])));
           }
           return _results;
         }
@@ -224,7 +223,7 @@
           _results = [];
           for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
             i = _ref2[_j];
-            _results.push(assert.equal(topic.singularize(words[i].capitalize()), i.capitalize()));
+            _results.push(assert.equal(topic.singularize(util.string.capitalize(words[i])), util.string.capitalize(i)));
           }
           return _results;
         }

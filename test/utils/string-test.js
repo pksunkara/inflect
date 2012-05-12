@@ -1,42 +1,41 @@
 (function() {
-  var assert, vows;
+  var assert, vows, util;
 
   vows = require('vows');
 
   assert = require('assert');
 
-  require('../../lib/utils/array');
-  require('../../lib/utils/string');
+  util = require('../../lib/util');
 
   vows.describe('Module core extension String').addBatch({
     'Testing value': {
       topic: 'bullet',
       'join the keys': function(topic) {
-        return assert.equal(topic.value(), 'bullet');
+        return assert.equal(util.string.value(topic), 'bullet');
       }
     },
     'Testing gsub': {
       topic: 'bullet',
       'when no args': function(topic) {
-        return assert.equal(topic.gsub(), 'bullet');
+        return assert.equal(util.string.gsub(topic), 'bullet');
       },
       'when only 1 arg': function(topic) {
-        return assert.equal(topic.gsub(/./), 'bullet');
+        return assert.equal(util.string.gsub(topic, /./), 'bullet');
       },
       'when given proper args': function(topic) {
-        return assert.equal(topic.gsub(/[aeiou]/, '*'), 'b*ll*t');
+        return assert.equal(util.string.gsub(topic, /[aeiou]/, '*'), 'b*ll*t');
       },
       'when replacement is a function': {
         'with many groups': function(topic) {
           var str;
-          str = topic.gsub(/([aeiou])(.)/, function($) {
+          str = util.string.gsub(topic, /([aeiou])(.)/, function($) {
             return "<" + $[1] + ">" + $[2];
           });
           return assert.equal(str, 'b<u>ll<e>t');
         },
         'with no groups': function(topic) {
           var str;
-          str = topic.gsub(/[aeiou]/, function($) {
+          str = util.string.gsub(topic, /[aeiou]/, function($) {
             return "<" + $[1] + ">";
           });
           return assert.equal(str, 'b<u>ll<e>t');
@@ -44,44 +43,44 @@
       },
       'when replacement is special': {
         'with many groups': function(topic) {
-          return assert.equal(topic.gsub(/([aeiou])(.)/, '<$1>$2'), 'b<u>ll<e>t');
+          return assert.equal(util.string.gsub(topic, /([aeiou])(.)/, '<$1>$2'), 'b<u>ll<e>t');
         },
         'with no groups': function(topic) {
-          return assert.equal(topic.gsub(/[aeiou]/, '<$1>'), 'b<u>ll<e>t');
+          return assert.equal(util.string.gsub(topic, /[aeiou]/, '<$1>'), 'b<u>ll<e>t');
         }
       }
     },
     'Testing capitalize': {
       topic: 'employee salary',
       'normal': function(topic) {
-        return assert.equal(topic.capitalize(), 'Employee Salary');
+        return assert.equal(util.string.capitalize(topic), 'Employee Salary');
       }
     },
     'Testing upcase': {
       topic: 'bullet',
       'only first letter should be upcase': function(topic) {
-        return assert.equal(topic.upcase(), 'Bullet');
+        return assert.equal(util.string.upcase(topic), 'Bullet');
       },
       'letter after underscore': function(topic) {
-        return assert.equal('bullet_record'.upcase(), 'Bullet_Record');
+        return assert.equal(util.string.upcase('bullet_record'), 'Bullet_Record');
       },
       'letter after slash': function(topic) {
-        return assert.equal('bullet_record/errors'.upcase(), 'Bullet_Record/Errors');
+        return assert.equal(util.string.upcase('bullet_record/errors'), 'Bullet_Record/Errors');
       },
       'no letter after space': function(topic) {
-        return assert.equal('employee salary'.upcase(), 'Employee salary');
+        return assert.equal(util.string.upcase('employee salary'), 'Employee salary');
       }
     },
     'Testing downcase': {
       topic: 'BULLET',
       'only first letter should be downcase': function(topic) {
-        return assert.equal(topic.downcase(), 'bULLET');
+        return assert.equal(util.string.downcase(topic), 'bULLET');
       },
       'letter after underscore': function(topic) {
-        return assert.equal('BULLET_RECORD'.downcase(), 'bULLET_rECORD');
+        return assert.equal(util.string.downcase('BULLET_RECORD'), 'bULLET_rECORD');
       },
       'letter after slash': function(topic) {
-        return assert.equal('BULLET_RECORD/ERRORS'.downcase(), 'bULLET_rECORD/eRRORS');
+        return assert.equal(util.string.downcase('BULLET_RECORD/ERRORS'), 'bULLET_rECORD/eRRORS');
       }
     }
   })["export"](module);
