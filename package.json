@@ -1,6 +1,6 @@
 {
   "name": "i",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com> (pksunkara.github.com)",
   "description": "custom inflections for nodejs",
   "main": "./lib/inflect",
