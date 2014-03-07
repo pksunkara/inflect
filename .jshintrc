@@ -1,0 +1,26 @@
+
+{
+  "browser"   : true,
+  "curly"     : true,
+  "devel"     : true,
+  "eqeqeq"    : true,
+  "eqnull"    : true,
+  "expr"      : true,
+  "jquery"    : true,
+  "laxcomma"  : true,
+  "newcap"    : true,
+  "node"      : true,
+  "nonew"     : true,
+  "predef":
+  [
+  "before",
+  "define",
+  "describe",
+  "it",
+  "require"
+  ],
+  "proto"     : true,
+  "smarttabs" : true,
+  "strict"    : false,
+  "undef"     : true
+}
