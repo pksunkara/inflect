@@ -27,7 +27,7 @@
   "homepage": "http://pksunkara.github.com/inflect",
   "scripts": {
     "test": "./node_modules/.bin/jshint lib/ test/ && ./node_modules/.bin/vows --spec $(find test -name '*-test.js')",
-    "postinstall" : "node_modules/.bin/bower install"
+    "postinstall" : "./node_modules/.bin/bower install"
   },
   "contributors": [
     {
