@@ -1,6 +1,6 @@
 {
   "name": "i",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "author": "Pavan Kumar Sunkara <pavan.sss1991@gmail.com> (pksunkara.github.com)",
   "description": "custom inflections for nodejs",
   "main": "./lib/inflect",
@@ -26,7 +26,8 @@
   ],
   "homepage": "http://pksunkara.github.com/inflect",
   "scripts": {
-    "test": "./node_modules/.bin/vows --spec $(find test -name '*-test.js')"
+    "test": "./node_modules/.bin/vows --spec $(find test -name '*-test.js')",
+    "postinstall" : "node_modules/.bin/bower install"
   },
   "contributors": [
     {
@@ -36,7 +37,9 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "vows": "~0.7.0"
+    "vows"        : "~0.7.0",
+    "bower"       : "*",
+    "http-server" : "*"
   },
   "engines": {
     "node": ">=0.4"

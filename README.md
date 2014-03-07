@@ -162,6 +162,31 @@ Here is a list of [Contributors](http://github.com/pksunkara/inflect/contributor
 
 __I accept pull requests and guarantee a reply back within a day__
 
+## Browser side
+
+Inflect works also on browser side.
+
+### Usage
+```js
+require(['inflect'], function(inflectLibrary) {
+  inflect = inflectLibrary();
+  // or if you want the native functions as well :
+  // inflect = inflectLibrary(true);
+});
+```
+
+### Tests
+An embryo of test suite is in place.
+If you want to execute them, start a server at the root of the project and point it to [http://localhost:8080/web-test/](http://localhost:8080/web-test/) :
+
+```bash
+# Start a web browser
+../node_modules/.bin/http-server 2>&1 > /dev/null
+
+# Point your browser
+open http://localhost:8080/web-test/
+```
+
 ## License
 MIT/X11
 
