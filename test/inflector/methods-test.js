@@ -335,6 +335,11 @@
           topic.inflections.irregular('octopus', 'octopi');
           return assert.equal(topic.classify('octopi'), 'Octopus');
         }
+      },
+      'greetings': function (topic) {
+        var names = cases.Greetings;
+        assert.equal(topic.greetings(names.simple_name), "FirstName");
+        assert.equal(topic.greetings(names.incomplete_name), "FirstName S");
       }
     }
   })["export"](module);
