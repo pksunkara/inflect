@@ -300,7 +300,7 @@
           return _results;
         },
         'with hyphens': function(topic) {
-          return assert.equal(topic.titleize('x-men: the last stand'), 'X Men: The Last Stand');
+          return assert.equal(topic.titleize('x-men: the last stand'), 'X Men: the Last Stand');
         },
         'with ampersands': function(topic) {
           return assert.equal(topic.titleize('garfunkel & oates'), 'Garfunkel & Oates');
