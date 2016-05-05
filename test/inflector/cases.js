@@ -155,7 +155,9 @@
       'Bulletwebservice': 'Bulletwebservice',
       "pavan's code": "Pavan's Code",
       "Pavan's code": "Pavan's Code",
-      "pavan's Code": "Pavan's Code"
+      "pavan's Code": "Pavan's Code",
+      "man from the boondocks" : "Man from the Boondocks",
+      "the man from the boondocks": "The Man from the Boondocks"
     },
     OrdinalNumbers: {
       "-1": "-1st",
