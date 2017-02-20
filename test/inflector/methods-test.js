@@ -35,6 +35,17 @@
           }
           return _results;
         },
+        'word with first letter lower (dashes)': function(topic) {
+          var i, words, _i, _len, _ref, _results;
+          words = cases.UnderscoreToLowerCamel;
+          _ref = Object.keys(words);
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            i = _ref[_i];
+            _results.push(assert.equal(topic.camelize(i, false), words[i]));
+          }
+          return _results;
+        },
         'path': function(topic) {
           var i, words, _i, _len, _ref, _results;
           words = cases.CamelWithModuleToUnderscoreWithSlash;

@@ -111,6 +111,11 @@
       "Area51Controller": "area51_controller"
     },
     UnderscoreToLowerCamel: {
+      "special-uest": "specialGuest",
+      "application-controller": "applicationController",
+      "area51-controller": "area51Controller"
+    },
+    DashesToLowerCamel: {
       "product": "product",
       "Widget": "widget",
       "special_guest": "specialGuest",
