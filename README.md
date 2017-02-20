@@ -155,6 +155,14 @@ inflect.pluralize('oil'); // === 'oil'
 inflect.singularize('oil'); // === 'oil'
 ```
 
+### Greetings
+
+```js
+inflect.greetings('firstname'); // === 'Fistname'
+inflect.greetings('firstName secondName'); // === 'FirstName S'
+``` 
+
+
 ## Contributors
 Here is a list of [Contributors](http://github.com/pksunkara/inflect/contributors)
 
