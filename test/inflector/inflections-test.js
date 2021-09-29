@@ -70,9 +70,9 @@
       },
       'irregular': function(topic) {
         topic.clear();
-        topic.uncountable(['octopi', 'octopus']);
-        assert.deepEqual(topic.uncountables, ['octopi', 'octopus']);
-        topic.irregular('octopus', 'octopi');
+        topic.uncountable(['octopuses', 'octopus']);
+        assert.deepEqual(topic.uncountables, ['octopuses', 'octopus']);
+        topic.irregular('octopus', 'octopuses');
         assert.isEmpty(topic.uncountables);
         assert.equal(topic.singulars[0][0].toString(), /(o)ctopi$/i.toString());
         assert.equal(topic.singulars[0][1], '$1ctopus');

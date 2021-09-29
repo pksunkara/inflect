@@ -164,8 +164,8 @@
           return assert.equal(topic.pluralize('money'), 'money');
         },
         'normal': function(topic) {
-          topic.inflections.irregular('octopus', 'octopi');
-          return assert.equal(topic.pluralize('octopus'), 'octopi');
+          topic.inflections.irregular('octopus', 'octopuses');
+          return assert.equal(topic.pluralize('octopus'), 'octopuses');
         },
         'cases': function(topic) {
           var i, words, _i, _j, _len, _len2, _ref, _ref2, _results;
@@ -208,8 +208,8 @@
           return assert.equal(topic.singularize('money'), 'money');
         },
         'normal': function(topic) {
-          topic.inflections.irregular('octopus', 'octopi');
-          return assert.equal(topic.singularize('octopi'), 'octopus');
+          topic.inflections.irregular('octopus', 'octopuses');
+          return assert.equal(topic.singularize('octopuses'), 'octopus');
         },
         'cases': function(topic) {
           var i, words, _i, _j, _len, _len2, _ref, _ref2, _results;
@@ -338,8 +338,8 @@
           return _results;
         },
         'normal': function(topic) {
-          topic.inflections.irregular('octopus', 'octopi');
-          return assert.equal(topic.classify('octopi'), 'Octopus');
+          topic.inflections.irregular('octopus', 'octopuses');
+          return assert.equal(topic.classify('octopuses'), 'Octopus');
         }
       }
     }

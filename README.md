@@ -35,7 +35,7 @@ var inflect = require('i')(true);
 
 ```js
 inflect.pluralize('person'); // === 'people'
-inflect.pluralize('octopus'); // === 'octopi'
+inflect.pluralize('octopus'); // === 'octopuses'
 inflect.pluralize('Hat'); // === 'Hats'
 ```
 
@@ -43,7 +43,7 @@ inflect.pluralize('Hat'); // === 'Hats'
 
 ```js
 inflect.singularize('people'); // === 'person'
-inflect.singularize('octopi'); // === 'octopus'
+inflect.singularize('octopuses'); // === 'octopus'
 inflect.singularize('Hats'); // === 'Hat'
 ```
 

@@ -65,7 +65,7 @@
       "mouse": "mice",
       "louse": "lice",
       "house": "houses",
-      "octopus": "octopi",
+      "octopus": "octopuses",
       "virus": "viri",
       "alias": "aliases",
       "portfolio": "portfolios",
